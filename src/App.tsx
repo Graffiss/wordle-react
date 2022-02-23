@@ -1,15 +1,18 @@
-import React from "react";
-import Wordle from "./components/wordle/wordle.component";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./theme/global-style";
 import { theme } from "./theme/theme";
+import Wordle from "./components/wordle/wordle.component";
 
 const App = () => {
     return (
-        <ThemeProvider theme={theme}>
-            <GlobalStyle />
-            <Wordle />
-        </ThemeProvider>
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <GlobalStyle />
+                <Wordle />
+            </ThemeProvider>
+        </Provider>
     );
 };
 

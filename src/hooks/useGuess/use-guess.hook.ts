@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
-
-export const NUMBER_OF_GUESSES = 6;
-export const WORD_LENGTH = 5;
+import React, { useEffect, useState, SetStateAction } from "react";
+import { WORD_LENGTH } from "../../constants/constants";
 
 const useGuess = (): [
     string,
-    React.Dispatch<React.SetStateAction<string>>,
+    React.Dispatch<SetStateAction<string>>,
     (letter: string) => void
 ] => {
     const [guess, setGuess] = useState("");

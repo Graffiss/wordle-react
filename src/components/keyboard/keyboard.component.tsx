@@ -1,5 +1,5 @@
 import React from "react";
-import { KEYBOARD_LETTERS } from "./keyboard.const";
+import { KEYBOARD_LETTERS } from "../../constants/constants";
 import {
     KeyboardWrapper,
     LargeKey,
@@ -21,21 +21,19 @@ const Keyboard = ({ onClick: onClickProps }: KeyboardProps) => {
     };
 
     return (
-        <KeyboardWrapper data-keyboard>
-            {KEYBOARD_LETTERS.map((keyboard, index) =>
-                keyboard === "Enter" ? (
-                    <LargeKey key={index} data-key={keyboard}>
-                        {keyboard}
-                    </LargeKey>
+        <KeyboardWrapper>
+            {KEYBOARD_LETTERS.map((letter, index) =>
+                letter === "Enter" ? (
+                    <LargeKey key={index}>{letter}</LargeKey>
                 ) : (
-                    keyboard !== "space" && (
-                        <Key key={index} data-key={keyboard} onClick={onClick}>
-                            {keyboard}
+                    letter !== "space" && (
+                        <Key key={index} onClick={onClick}>
+                            {letter}
                         </Key>
                     )
                 )
             )}
-            <DeleteButton data-delete>
+            <DeleteButton>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="24"
