@@ -1,7 +1,6 @@
 import { WORD_LENGTH } from "../../constants/constants";
 import LetterTile from "../letter-tile/letter-tile.component";
 import { LetterState } from "../letter-tile/lettter-tile.types";
-import { TilesWrapper } from "./words-grid.styled";
 interface WordRowProps {
     word: string;
     result?: LetterState[];
@@ -17,11 +16,11 @@ const WordsGrid = ({
     const letters = word.split("").concat(Array(lettersRemaining).fill(""));
 
     return (
-        <TilesWrapper>
+        <>
             {letters.map((char, index) => (
                 <LetterTile key={index} value={char} state={result[index]} />
             ))}
-        </TilesWrapper>
+        </>
     );
 };
 
