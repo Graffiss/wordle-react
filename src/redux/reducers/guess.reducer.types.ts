@@ -10,6 +10,6 @@ export interface GuessState {
     rows: GuessRow[];
     gameState: "playing" | "won" | "lost";
     keyboardLetterState: { [letter: string]: LetterState };
-    addGuess(guess: string): void;
-    newGame(initialGuess?: string[]): void;
+    addGuess?(guess: string): void;
+    newGame?(initialGuess?: string[]): void;
 }
