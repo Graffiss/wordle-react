@@ -1,48 +1,26 @@
-import React from "react";
-import styled from "styled-components";
-import { Theme } from "../../theme/theme";
+import { WORD_LENGTH } from "../../constants/constants";
+import LetterTile from "../letter-tile/letter-tile.component";
+import { LetterState } from "../letter-tile/lettter-tile.types";
+interface WordRowProps {
+    word: string;
+    result?: LetterState[];
+    className?: string;
+}
 
-const TilesWrapper = styled.div`
-    display: grid;
-    justify-content: center;
-    align-content: center;
-    flex-grow: 1;
-    grid-template-columns: repeat(5, 4em);
-    grid-template-rows: repeat(6, 4em);
-    gap: 0.25em;
-    margin-bottom: 1em;
-`;
+const WordsGrid = ({
+    word = "",
+    result = [],
+    className = "",
+}: WordRowProps) => {
+    const lettersRemaining = WORD_LENGTH - word.length;
+    const letters = word.split("").concat(Array(lettersRemaining).fill(""));
 
-const Tile = styled.div`
-    font-size: 2em;
-    color: white;
-    border: 0.05em solid ${({ theme }: { theme: Theme }) => theme.tileBorder};
-    text-transform: uppercase;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-    transition: transform 250ms linear;
-`;
-
-const TILES_COUNT = 30;
-
-const generateTiles = (tiles: number) => {
-    const tilesArray: number[] = [];
-    for (let i = 0; i < tiles; i++) {
-        tilesArray.push(i);
-    }
-    return tilesArray;
-};
-
-const WordsGrid = () => {
     return (
-        <TilesWrapper>
-            {generateTiles(TILES_COUNT).map((tile) => (
-                <Tile key={tile} />
+        <>
+            {letters.map((char, index) => (
+                <LetterTile key={index} value={char} state={result[index]} />
             ))}
-        </TilesWrapper>
+        </>
     );
 };
 
