@@ -1,5 +1,8 @@
 import React from "react";
 import { KEYBOARD_LETTERS } from "../../constants/constants";
+import { useAppSelector } from "../../redux/hooks/utils.hook";
+import { selectKeyboardLetterState } from "../../redux/reducers/guess.reducer";
+import { LetterState } from "../letter-tile/lettter-tile.types";
 import {
     KeyboardWrapper,
     LargeKey,
@@ -8,7 +11,15 @@ import {
 } from "./keyboard.styled";
 import { KeyboardProps } from "./keyboard.types";
 
+const keyStateStyles = {
+    [LetterState.Miss]: "#3a3a3c",
+    [LetterState.Present]: "#b59f3b",
+    [LetterState.Match]: "#538e4e",
+};
+
 const Keyboard = ({ onClick: onClickProps }: KeyboardProps) => {
+    const keyboardLetterState = useAppSelector(selectKeyboardLetterState);
+
     const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         const { textContent, innerHTML } = e.currentTarget;
 
@@ -22,17 +33,29 @@ const Keyboard = ({ onClick: onClickProps }: KeyboardProps) => {
 
     return (
         <KeyboardWrapper>
-            {KEYBOARD_LETTERS.map((letter, index) =>
-                letter === "Enter" ? (
+            {console.log("keyStateStyles:", keyStateStyles)}
+            {console.log("keyboardLetterState:", keyboardLetterState)}
+            {KEYBOARD_LETTERS.map((letter, index) => {
+                const letterState = keyStateStyles[keyboardLetterState[letter]];
+                console.log(
+                    "keyboardLetterState[letter]",
+                    keyboardLetterState[letter]
+                );
+                console.log("letter state:", letterState);
+                return letter === "Enter" ? (
                     <LargeKey key={index}>{letter}</LargeKey>
                 ) : (
                     letter !== "space" && (
-                        <Key key={index} onClick={onClick}>
+                        <Key
+                            key={index}
+                            onClick={onClick}
+                            activeColor={letterState}
+                        >
                             {letter}
                         </Key>
                     )
-                )
-            )}
+                );
+            })}
             <DeleteButton>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

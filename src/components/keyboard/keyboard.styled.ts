@@ -9,7 +9,7 @@ export const KeyboardWrapper = styled.div`
     margin-top: 5em;
 `;
 
-export const Key = styled.button`
+export const Key = styled.button<{ activeColor?: string }>`
     font-size: inherit;
     grid-column: span 2;
     border: none;
@@ -17,11 +17,8 @@ export const Key = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: hsl(
-        var(--hue, 200),
-        var(--saturation, 1%),
-        calc(var(--lightness-offset, 0%) + var(--lightness, 51%))
-    );
+    background-color: ${({ activeColor }) =>
+        activeColor ? activeColor : "#818384"};
     color: white;
     fill: white;
     text-transform: uppercase;
