@@ -4,14 +4,9 @@ import { LetterState } from "../letter-tile/lettter-tile.types";
 interface WordRowProps {
     word: string;
     result?: LetterState[];
-    className?: string;
 }
 
-const WordsGrid = ({
-    word = "",
-    result = [],
-    className = "",
-}: WordRowProps) => {
+const WordsGrid = ({ word = "", result = [] }: WordRowProps) => {
     const lettersRemaining = WORD_LENGTH - word.length;
     const letters = word.split("").concat(Array(lettersRemaining).fill(""));
 

@@ -30,7 +30,7 @@ export const guessSlice = createSlice({
             // state.rows = [...state.rows, action.payload];
             const result = calculateGuess(action.payload, state.answer);
 
-            state.rows = state.rows.concat({
+            const rows = state.rows.concat({
                 guess: action.payload,
                 result,
             });
@@ -58,6 +58,8 @@ export const guessSlice = createSlice({
                 }
             });
 
+            state.rows = rows;
+            state.keyboardLetterState = keyboardLetterState;
             state.gameState = didWin
                 ? "won"
                 : state.rows.length === NUMBER_OF_GUESSES
@@ -82,12 +84,12 @@ export const guessSlice = createSlice({
             //     },
             // };
         },
-        newGame: (state, action) => {
+        newGame: (state) => {
             state.gameState = "playing";
             state.answer = getWord();
             state.rows = [];
             state.keyboardLetterState = {};
-            action.payload.forEach(addGuess);
+            // action.payload.forEach(addGuess);
         },
     },
 });

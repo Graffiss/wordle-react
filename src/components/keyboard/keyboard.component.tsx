@@ -8,6 +8,7 @@ import {
     LargeKey,
     Key,
     DeleteButton,
+    InvisibleKey,
 } from "./keyboard.styled";
 import { KeyboardProps } from "./keyboard.types";
 
@@ -33,30 +34,26 @@ const Keyboard = ({ onClick: onClickProps }: KeyboardProps) => {
 
     return (
         <KeyboardWrapper>
-            {console.log("keyStateStyles:", keyStateStyles)}
-            {console.log("keyboardLetterState:", keyboardLetterState)}
             {KEYBOARD_LETTERS.map((letter, index) => {
                 const letterState = keyStateStyles[keyboardLetterState[letter]];
-                console.log(
-                    "keyboardLetterState[letter]",
-                    keyboardLetterState[letter]
-                );
-                console.log("letter state:", letterState);
+
                 return letter === "Enter" ? (
-                    <LargeKey key={index}>{letter}</LargeKey>
+                    <LargeKey key={index} onClick={onClick}>
+                        {letter}
+                    </LargeKey>
+                ) : letter !== "space" ? (
+                    <Key
+                        key={index}
+                        onClick={onClick}
+                        activeColor={letterState}
+                    >
+                        {letter}
+                    </Key>
                 ) : (
-                    letter !== "space" && (
-                        <Key
-                            key={index}
-                            onClick={onClick}
-                            activeColor={letterState}
-                        >
-                            {letter}
-                        </Key>
-                    )
+                    <InvisibleKey />
                 );
             })}
-            <DeleteButton>
+            <DeleteButton onClick={onClick}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="24"

@@ -7,7 +7,6 @@ import {
     addGuess,
     selectAnswer,
     selectGameState,
-    selectKeyboardLetterState,
     selectRows,
 } from "../../redux/reducers/guess.reducer";
 import { isValidWord } from "../../utils/get-words";
@@ -23,15 +22,8 @@ const Wordle = () => {
     const stateRows = useAppSelector(selectRows);
     const answer = useAppSelector(selectAnswer);
     const gameState = useAppSelector(selectGameState);
-    const keyboardLetterState = useAppSelector(selectKeyboardLetterState);
 
-    console.log("guess:", guess);
-    console.log("stateRows:", stateRows);
-    console.log("showInvalidGuess:", showInvalidGuess);
     console.log("answer:", answer);
-    console.log("gameState:", gameState);
-    console.log("keyboardLetterState:", keyboardLetterState);
-
     useEffect(() => {
         let id: NodeJS.Timeout;
         if (showInvalidGuess) {
@@ -54,6 +46,8 @@ const Wordle = () => {
         }
     }, [guess]);
 
+    const isGameOver = gameState !== "playing";
+
     let rows = [...stateRows];
 
     let currentRow = 0;
@@ -67,18 +61,15 @@ const Wordle = () => {
 
     return (
         <>
-            <Alert />
+            {isGameOver && <Alert />}
             <TilesWrapper>
                 {rows.map((word, index) => {
                     return (
-                        <>
-                            {console.log("Word from rows:", word)}
-                            <WordsGrid
-                                key={index}
-                                word={word.guess}
-                                result={word.result}
-                            />
-                        </>
+                        <WordsGrid
+                            key={index}
+                            word={word.guess}
+                            result={word.result}
+                        />
                     );
                 })}
             </TilesWrapper>

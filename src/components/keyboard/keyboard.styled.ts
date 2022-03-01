@@ -31,4 +31,9 @@ export const LargeKey = styled(Key)`
     grid-column: span 3;
 `;
 
+export const InvisibleKey = styled(Key)`
+    grid-column: span 1;
+    background-color: transparent;
+`;
+
 export const DeleteButton = styled(LargeKey)``;
