@@ -1,14 +1,26 @@
 import React from "react";
 import { KEYBOARD_LETTERS } from "../../constants/constants";
+import { useAppSelector } from "../../redux/hooks/utils.hook";
+import { selectKeyboardLetterState } from "../../redux/reducers/guess.reducer";
+import { LetterState } from "../letter-tile/lettter-tile.types";
 import {
     KeyboardWrapper,
     LargeKey,
     Key,
     DeleteButton,
+    InvisibleKey,
 } from "./keyboard.styled";
 import { KeyboardProps } from "./keyboard.types";
 
+const keyStateStyles = {
+    [LetterState.Miss]: "#3a3a3c",
+    [LetterState.Present]: "#b59f3b",
+    [LetterState.Match]: "#538e4e",
+};
+
 const Keyboard = ({ onClick: onClickProps }: KeyboardProps) => {
+    const keyboardLetterState = useAppSelector(selectKeyboardLetterState);
+
     const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         const { textContent, innerHTML } = e.currentTarget;
 
@@ -22,18 +34,26 @@ const Keyboard = ({ onClick: onClickProps }: KeyboardProps) => {
 
     return (
         <KeyboardWrapper>
-            {KEYBOARD_LETTERS.map((letter, index) =>
-                letter === "Enter" ? (
-                    <LargeKey key={index}>{letter}</LargeKey>
+            {KEYBOARD_LETTERS.map((letter, index) => {
+                const letterState = keyStateStyles[keyboardLetterState[letter]];
+
+                return letter === "Enter" ? (
+                    <LargeKey key={index} onClick={onClick}>
+                        {letter}
+                    </LargeKey>
+                ) : letter !== "space" ? (
+                    <Key
+                        key={index}
+                        onClick={onClick}
+                        activeColor={letterState}
+                    >
+                        {letter}
+                    </Key>
                 ) : (
-                    letter !== "space" && (
-                        <Key key={index} onClick={onClick}>
-                            {letter}
-                        </Key>
-                    )
-                )
-            )}
-            <DeleteButton>
+                    <InvisibleKey />
+                );
+            })}
+            <DeleteButton onClick={onClick}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="24"

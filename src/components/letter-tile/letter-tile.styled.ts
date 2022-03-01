@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { Theme } from "../../theme/theme";
 
-export const Tile = styled.span`
+export const Tile = styled.span<{ activeColor?: string }>`
     font-size: 2em;
     color: white;
     border: 0.05em solid ${({ theme }: { theme: Theme }) => theme.tileBorder};
-    background-color: ${({ theme }: { theme: Theme }) => theme.word};
+    background-color: ${({ activeColor }) => activeColor};
     text-transform: uppercase;
     font-weight: bold;
     display: flex;
