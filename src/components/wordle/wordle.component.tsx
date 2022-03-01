@@ -5,7 +5,6 @@ import usePrevious from "../../hooks/useGuess/use-previous.hook";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/utils.hook";
 import {
     addGuess,
-    selectAnswer,
     selectGameState,
     selectRows,
 } from "../../redux/reducers/guess.reducer";
@@ -20,10 +19,8 @@ const Wordle = () => {
     const [showInvalidGuess, setInvalidGuess] = useState(false);
     const dispatch = useAppDispatch();
     const stateRows = useAppSelector(selectRows);
-    const answer = useAppSelector(selectAnswer);
     const gameState = useAppSelector(selectGameState);
 
-    console.log("answer:", answer);
     useEffect(() => {
         let id: NodeJS.Timeout;
         if (showInvalidGuess) {

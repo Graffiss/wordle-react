@@ -13,21 +13,11 @@ const initialState: GuessState = {
     keyboardLetterState: {},
 };
 
-interface Guess {
-    guess: string;
-}
-
 export const guessSlice = createSlice({
     name: "guess",
     initialState,
-    // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
-        // Use the PayloadAction type to declare the contents of `action.payload`
-        // setGameState: (state, action: PayloadAction<string>) => {
-
-        // },
-        addGuess: (state, action: PayloadAction<any>) => {
-            // state.rows = [...state.rows, action.payload];
+        addGuess: (state, action: PayloadAction<string>) => {
             const result = calculateGuess(action.payload, state.answer);
 
             const rows = state.rows.concat({
@@ -65,31 +55,12 @@ export const guessSlice = createSlice({
                 : state.rows.length === NUMBER_OF_GUESSES
                 ? "lost"
                 : "playing";
-
-            // return {
-            //     answer: getWord(),
-            //     rows: [],
-            //     gameState: "playing",
-            //     keyboardLetterState: {},
-            //     addGuess: this,
-            //     newGame(initialRows = []) {
-            //         ({
-            //             gameState: "playing",
-            //             answer: getWord(),
-            //             rows: [],
-            //             keyboardLetterState: {},
-            //         });
-
-            //         initialRows.forEach(this.addGuess);
-            //     },
-            // };
         },
         newGame: (state) => {
             state.gameState = "playing";
             state.answer = getWord();
             state.rows = [];
             state.keyboardLetterState = {};
-            // action.payload.forEach(addGuess);
         },
     },
 });
