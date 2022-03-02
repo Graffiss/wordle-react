@@ -50,7 +50,7 @@ const Keyboard = ({ onClick: onClickProps }: KeyboardProps) => {
                         {letter}
                     </Key>
                 ) : (
-                    <InvisibleKey />
+                    <InvisibleKey key={index} />
                 );
             })}
             <DeleteButton onClick={onClick}>

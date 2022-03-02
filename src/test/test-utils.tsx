@@ -32,17 +32,18 @@ import { Provider } from "react-redux";
 import guessReducer from "../redux/reducers/guess.reducer";
 
 function render(
-    ui,
+    ui: React.ReactElement,
     {
+        // @ts-ignore
         preloadedState,
         store = configureStore({
-            reducer: { user: guessReducer },
+            reducer: { guess: guessReducer },
             preloadedState,
         }),
         ...renderOptions
     } = {}
 ) {
-    function Wrapper({ children }) {
+    function Wrapper({ children }: any) {
         return <Provider store={store}>{children}</Provider>;
     }
     return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
