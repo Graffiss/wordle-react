@@ -30,7 +30,7 @@ const Alert = () => {
             )}
             <Button
                 onClick={() => {
-                    dispatch(newGame());
+                    dispatch(newGame([]));
                 }}
             >
                 New Game

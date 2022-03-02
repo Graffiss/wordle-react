@@ -6,7 +6,7 @@ import { getWord } from "../../utils/get-words";
 import type { AppState } from "../store";
 import { GuessState } from "./guess.reducer.types";
 
-const initialState: GuessState = {
+export const initialState: GuessState = {
     answer: getWord(),
     rows: [],
     gameState: "playing",
@@ -56,11 +56,15 @@ export const guessSlice = createSlice({
                 ? "lost"
                 : "playing";
         },
-        newGame: (state) => {
+        newGame: (
+            state,
+            action: PayloadAction<string[]> = { type: "string", payload: [] }
+        ) => {
             state.gameState = "playing";
             state.answer = getWord();
             state.rows = [];
             state.keyboardLetterState = {};
+            action.payload.forEach(addGuess);
         },
     },
 });
