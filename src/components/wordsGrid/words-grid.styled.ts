@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const TilesWrapper = styled.div`
+export const TilesWrapper = styled.main`
     display: grid;
     justify-content: center;
     align-content: center;
