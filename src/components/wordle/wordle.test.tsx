@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "../../test/test-utils";
 import Wordle from "./wordle.component";
-import { initialState, newGame } from "../../redux/reducers/guess.reducer";
+import { newGame } from "../../redux/reducers/guess.reducer";
 import store from "../../redux/store";
 import { GuessState } from "../../redux/reducers/guess.reducer.types";
 
@@ -13,7 +13,7 @@ const mockState: GuessState = {
 };
 
 describe("Wordle", () => {
-    test("shows one row of guesses", async () => {
+    test("game is not over when word is provided", async () => {
         render(<Wordle />, {
             preloadedState: {
                 guess: {
@@ -22,9 +22,8 @@ describe("Wordle", () => {
             },
         });
 
-        store.dispatch(newGame([]));
+        store.dispatch(newGame(["hello"]));
 
         expect(screen.queryByText("Game Over")).toBeNull();
-        // expect(await screen.findByText("hello")).toBeInTheDocument();
     });
 });
